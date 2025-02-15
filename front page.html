@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife Health & Fitness Club</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #333;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            background-color: #555;
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://placeholder.com/fitness-background');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .close {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* BMI Calculator Styles */
+        .calculator-section {
+            padding: 4rem 2rem;
+            background-color: #fff;
+        }
+
+        .calculator-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .result {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .bmi-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .recommendation {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .healthy {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+
+        .not-healthy {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+
+        /* Mood Checker Styles */
+        .mood-checker {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 2rem auto;
+            max-width: 500px;
+        }
+
+        .mood-checker button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .mood-checker button:hover {
+            transform: scale(1.05);
+        }
+
+        #yes {
+            display: inline-block;
+             padding: 10px 20px; 
+             background-color: #f44336;
+              color: white;
+               text-decoration: none;
+                border: none;
+                  border-radius: 5px;
+            background: #f44336;
+            color: white;
+        }
+
+        #no {
+            background: #f44336;
+            color: white;
+        }
+
+        #mood-result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar .nav-links {
+                margin-top: 1rem;
+            }
+
+            .navbar .nav-links a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">FitLife</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#bmi-calculator">BMI Calculator</a>
+            <a href="#mood-checker">Mood Checker</a>
+            <a href="#" onclick="showLogin()">Login</a>
+            <a href="#" onclick="showRegister()">Register</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Life with FitLife</h1>
+            <p>Check your health and fitness to achieve your fitness goals</p>
+            <button class="btn btn-primary" onclick="location.href='#bmi-calculator'">Let's check your health</button>
+        </div>
+    </section>
+
+    <section id="bmi-calculator" class="calculator-section">
+        <div class="calculator-container">
+            <h1>BMI Calculator</h1>
+            <form id="bmiForm">
+                <div class="form-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" id="weight" required step="0.1" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="height">Height (cm)</label>
+                    <input type="number" id="height" required step="0.1" min="0">
+                </div>
+                <button type="submit" class="btn btn-primary">Calculate BMI</button>
+            </form>
+
+            <div id="result" class="result">
+                <h2>Your Results</h2>
+                <div class="bmi-value" id="bmiValue"></div>
+                <div class="reference">
+                    Reference BMI: 22.0 (Healthy Range)
+                </div>
+                <div class="recommendation" id="recommendation"></div>
+                <div class="bmi-categories">
+                    BMI Categories:<br>
+                    Underweight: < 18.5<br>
+                    Normal weight: 18.5 - 24.9<br>
+                    Overweight: 25 - 29.9<br>
+                    Obese: ≥ 30
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mood-checker" class="mood-checker">
+        <h2>Did you want to make your perfect bbm as a good health ?</h2>
+        <button id="yes" onclick="showSuggestion(true)"><a href="https://www.example.com"  target="_blank" rel="noopener noreferrer"  style=" cursor:default"> Yes</a></button>
+        <button id="no" onclick="showSuggestion(false)">No</button>
+        <div id="mood-result"></div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function showLogin() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function showRegister() {
+            document.getElementById('registerModal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Form submission handlers
+        document.getElementById('loginForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert('Login functionality would be implemented here');
+        }
+
+        document.getElementById('registerForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert('Registration functionality would be implemented here');
+        }
+
+        // BMI Calculator
+        document.getElementById('bmiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100;
+            const referenceBMI = 22.0;
+
+            const bmi = weight / (height * height);
+            
+            const resultDiv = document.getElementById('result');
+            const bmiValueDiv = document.getElementById('bmiValue');
+            const recommendationDiv = document.getElementById('recommendation');
+            
+            resultDiv.style.display = 'block';
+            bmiValueDiv.textContent = `Your BMI: ${bmi.toFixed(1)}`;
+            
+            const bmiDifference = Math.abs(bmi - referenceBMI);
+            const isHealthy = bmi >= 18.5 && bmi <= 24.9;
+            
+            recommendationDiv.className = 'recommendation ' + (isHealthy ? 'healthy' : 'not-healthy');
+            
+            if (isHealthy) {
+                recommendationDiv.textContent = "Your BMI is within the healthy range! Keep maintaining your healthy lifestyle.";
+            } else {
+                if (bmi < 18.5) {
+                    recommendationDiv.textContent = "Your BMI indicates you're underweight. Consider consulting a healthcare provider about a healthy weight gain plan.";
+                } else if (bmi >= 25 && bmi < 30) {
+                    recommendationDiv.textContent = "Your BMI indicates you're overweight. Consider adopting a balanced diet and regular exercise routine.";
+                } else {
+                    recommendationDiv.textContent = "Your BMI indicates obesity. It's recommended to consult a healthcare provider for personalized advice.";
+                }
+            }
+        });
+
+        // Mood Checker
+        function showSuggestion(isYes) {
+            const suggestions = {
+                
+                no: [
+                    "Take a deep breath, things will get better",
+                    "How about a short walk?",
+                    "Try calling a friend",
+                    "Maybe some music will help"
+                ]
+            };
+            
+            const list = isYes ? suggestions.yes : suggestions.no;
+            const random = list[Math.floor(Math.random() * list.length)];
+            
+            document.getElementById('mood-result').innerHTML = random;
+            document.getElementById('mood-result').style.background = isYes ? '#e8f5e9' : '#ffebee';
+        }
+    </script>
+</body>
+</html>
