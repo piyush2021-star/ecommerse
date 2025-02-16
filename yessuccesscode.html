@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife - Complete Health & Fitness Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --accent-color: #ff4757;
+        }
+
+        body {
+            background-color: #f5f6fa;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--dark-color);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        /* Feature Images Section */
+        .features-section {
+            margin-top: 80px;
+            padding: 2rem;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-box {
+            position: relative;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: scale(1.02);
+        }
+
+        .feature-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .feature-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+        }
+
+        /* Rest of your existing styles... */
+        
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">FitLife</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#store">Store</a>
+                <a href="#gyms">Gyms</a>
+                <a href="#hospitals">Hospitals</a>
+                <div class="cart-icon" onclick="toggleCart()">
+                    🛒 <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Feature Images Section -->
+    <section class="features-section" id="features">
+        <div class="features-grid">
+            <div class="feature-box" onclick="location.href='#store'">
+                <a href="http://127.0.0.1:5500/fitness%20and%20health%20care%20website.html"><img src="images3.jpg" alt="Fitness Store"></a>
+                <div class="feature-overlay">
+                    <h2>Fitness Store</h2>
+                    <p>Premium equipment and supplements</p>
+                </div>
+            </div>
+            <div class="feature-box" onclick="location.href='#gyms'">
+                <a href="http://127.0.0.1:5500/gym%20finder.html"><img src="gym1.jpg" alt="Gym Finder"></a>
+                <div class="feature-overlay">
+                    <h2>Find Gyms</h2>
+                    <p>Discover fitness centers near you</p>
+                </div>
+            </div>
+            <div class="feature-box" onclick="location.href='#hospitals'">
+             <a href="http://127.0.0.1:5500/hospital.html"> <img src="new1.jpg" alt="Hospital Finder"></a>
+                <div class="feature-overlay">
+                    <h2>Nearby Hospitals</h2>
+                    <p>Locate healthcare facilities</p>
+                </div>
+            </div>
+            <div class="feature-box" onclick="location.href='#health-tips'">
+                <img src="new2.jpg" alt="Health Tips">
+                <div class="feature-overlay">
+                    <h2>Health Tips</h2>
+                    <p>Expert advice for your wellness journey</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store Section -->
+    [Store section content from fitness and health care website.html]
+
+    <!-- Gym Finder Section -->
+    [Gym finder section content from gym finder.html]
+
+    <!-- Hospital Finder Section -->
+    [Hospital finder section content from hospital.html]
+
+    <!-- Cart Modal -->
+    [Cart modal content from fitness and health care website.html]
+
+    <script>
+        // Combined JavaScript from all documents
+        
+    </script>
+</body>
+</html>
